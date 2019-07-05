@@ -2,7 +2,7 @@ FROM ubuntu:16.04
 
 RUN set -e; \
   apt-get update; \
-  apt-get install build-essential software-properties-common -; \
+  apt-get install -y build-essential software-properties-common; \
   add-apt-repository ppa:ubuntu-toolchain-r/test -y; \
   apt-get update; \
   apt-get install -y g++-8 openjdk-8-jdk; \
