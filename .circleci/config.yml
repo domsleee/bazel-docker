@@ -9,6 +9,7 @@ aliases:
       - run:
           name: Build application Docker image
           command: |
+            cp -r .all/* "${DIRECTORY}/";
             docker build -t test "${DIRECTORY}"
       - run:
           name: run build tests
@@ -28,21 +29,15 @@ workflows:
   build:
     jobs:
       - "Build ubuntu 18.04"
-      - "Build ubuntu 16.04"
-      - "Build alpine"
+      - "Build SMALL ubuntu"
 jobs:
     "Build ubuntu 18.04":
       <<: *deploy_environment
       environment:
         DIRECTORY: ./ubuntu-18.04
       steps: *build_and_run
-    "Build ubuntu 16.04":
+    "Build SMALL ubuntu":
       <<: *deploy_environment
       environment:
-        DIRECTORY: ./ubuntu-16.04
-      steps: *build_and_run
-    "Build alpine":
-      <<: *deploy_environment
-      environment:
-        DIRECTORY: ./alpine
+        DIRECTORY: ./ubuntu-18.04-small
       steps: *build_and_run
