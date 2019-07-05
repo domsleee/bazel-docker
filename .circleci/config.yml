@@ -5,6 +5,10 @@ aliases:
           - image: docker:17.05.0-ce-git
     - &build_and_run
       - checkout
+      -  run: |
+          if git diff HEAD --name-only | grep ${DIRECTORY/.\//}; then
+            circleci-agent step halt
+          fi;
       - setup_remote_docker
       - run:
           name: Build application Docker image
