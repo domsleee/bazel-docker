@@ -1,5 +1,8 @@
 FROM ubuntu:18.04
 
+COPY dummy.cc ./dummy.cc
+COPY BUILD BUILD
+
 # TODO: use first method
 RUN set -e; \
   apt-get update; \
