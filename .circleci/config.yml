@@ -19,11 +19,13 @@ jobs:
 
             docker run -it --rm \
               --volumes-from myvolumes \
+              -v /app/.test:/app \
               -w /app \
               --net none \
               test bash -c 'pwd; ls; echo OK;';
             docker run -it --rm \
               --volumes-from myvolumes \
+              -v /app/.test:/app \
               -w /app \
               --net none \
               test ./test.sh
