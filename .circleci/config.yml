@@ -14,17 +14,18 @@ jobs:
       - run:
           name: run build tests
           command: |
+            docker create -v /app --name myvolumes alpine:3.4 /bin/true
+            docker cp .test myvolumes:/app/.test
+
             docker run -it --rm \
-              -v /var/run/docker.sock:/var/run/docker.sock \
-              -v /app/.test:/app \
+              --volumes-from myvolumes \
               -w /app \
               --net none \
               test bash -c 'pwd; ls; echo OK;';
             docker run -it --rm \
-              -v /app/.test:/app \
+              --volumes-from myvolumes \
               -w /app \
               --net none \
-              -v /var/run/docker.sock:/var/run/docker.sock \
               test ./test.sh
 
 workflows:
