@@ -12,7 +12,7 @@ RUN set -e; \
   apt-get clean; \
   touch WORKSPACE; \
   pwd; ls; \
-  bazel build //:dummy; \
+  bazel build :dummy; \
   rm WORKSPACE; \
   rm -rf /var/lib/apt/lists/*;
 
