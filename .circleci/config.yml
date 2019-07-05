@@ -15,13 +15,13 @@ jobs:
           name: run build tests
           command: |
             docker run -it --rm \
-              -v ./.test:/app \
+              -v /var/run/docker.sock:/var/run/docker.sock \
+              -v /app/test:/app \
               -w /app \
               --net none \
-              -v /var/run/docker.sock:/var/run/docker.sock \
               test bash -c 'pwd; ls; echo OK;';
             docker run -it --rm \
-              -v ./.test:/app \
+              -v /app/test:/app \
               -w /app \
               --net none \
               -v /var/run/docker.sock:/var/run/docker.sock \
