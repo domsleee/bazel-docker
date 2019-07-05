@@ -1,3 +1,4 @@
+version: 2.1
 jobs:
   build:
     working_directory: /app
@@ -11,7 +12,6 @@ jobs:
           command: |
             docker build -t test ./ubuntu-18.04
 workflows:
-  version: 2.1
   build:
     jobs:
       - build
