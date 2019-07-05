@@ -24,7 +24,7 @@ jobs:
               --volumes-from myvolumes \
               -w /app \
               --net none \
-              test bash -c 'pwd; ls; echo OK;';
+              test bash -c 'echo "PWD"; pwd; ls; echo OK;';
             docker run -it --rm \
               --volumes-from myvolumes \
               -w /app \
