@@ -11,8 +11,8 @@ RUN set -e; \
   apt-get install --only-upgrade -y bazel; \
   apt-get clean; \
   touch WORKSPACE; \
-  bazel fetch @remote_java_tools_linux//...; \
   bazel fetch @remote_coverage_tools//...; \
+  bazel fetch @remote_java_tools_linux//...; \
   rm WORKSPACE; \
   rm -rf /var/lib/apt/lists/*;
 
