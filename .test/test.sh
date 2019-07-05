@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 set -e;
-bazel build //test:test;
+bazel build //assignments/wl:main;
 echo OK
