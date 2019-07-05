@@ -17,16 +17,16 @@ jobs:
             pwd;
             echo "LS .test"
             ls .test;
-            docker create -v /app --name myvolumes alpine:3.4 /bin/true
-            docker cp .test myvolumes:/app/.test
+            docker create -v /app --name mycontainer alpine /bin/true
+            docker cp .test/. mycontainer:/app/
 
             docker run -it --rm \
-              --volumes-from myvolumes \
+              --volumes-from mycontainer \
               -w /app \
               --net none \
               test bash -c 'echo "PWD"; pwd; ls; echo OK;';
             docker run -it --rm \
-              --volumes-from myvolumes \
+              --volumes-from mycontainer \
               -w /app \
               --net none \
               test ./test.sh
