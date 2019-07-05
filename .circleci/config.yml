@@ -9,6 +9,7 @@ aliases:
       - run:
           name: Build application Docker image
           command: |
+            cp -r .all/* "${DIRECTORY}/";
             docker build -t test "${DIRECTORY}"
       - run:
           name: run build tests
