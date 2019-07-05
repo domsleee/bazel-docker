@@ -27,7 +27,7 @@ workflows:
   version: 2
   build:
     jobs:
-      - "Build ubuntu-18.04"
+      - "Build ubuntu 18.04"
 jobs:
     "Build ubuntu 18.04":
         <<: *deploy_environment
