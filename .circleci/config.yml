@@ -41,13 +41,3 @@ jobs:
       environment:
         DIRECTORY: ./ubuntu-18.04-smaller
       steps: *build_and_run
-    "Build ubuntu 16.04":
-      <<: *deploy_environment
-      environment:
-        DIRECTORY: ./ubuntu-16.04
-      steps: *build_and_run
-    "Build alpine":
-      <<: *deploy_environment
-      environment:
-        DIRECTORY: ./alpine
-      steps: *build_and_run

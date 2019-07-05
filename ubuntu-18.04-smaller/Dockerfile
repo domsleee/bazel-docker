@@ -6,6 +6,7 @@ ENV VERSION 0.27.1
 # TODO: use first method
 RUN set -e; \
   apt-get update; \
+  echo ${MYSECRET}; \
   apt-get install -y pkg-config zip g++ zlib1g-dev unzip python3 curl; \
   curl https://github.com/bazelbuild/bazel/releases/download/0.27.1/bazel-0.27.1-installer-linux-x86_64.sh -Lo script.sh; \
   bash script.sh; \
