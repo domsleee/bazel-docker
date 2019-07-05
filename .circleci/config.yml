@@ -14,6 +14,9 @@ jobs:
       - run:
           name: run build tests
           command: |
+            pwd;
+            echo "LS .test"
+            ls .test;
             docker create -v /app --name myvolumes alpine:3.4 /bin/true
             docker cp .test myvolumes:/app/.test
 
