@@ -1,6 +1,6 @@
 cc_test(
     name = "dummy",
-    srcs = ["dummy.cpp"],
+    srcs = ["dummy.cc"],
     deps = [
     ],
 )
