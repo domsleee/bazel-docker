@@ -23,12 +23,7 @@ jobs:
             docker run -it --rm \
               --volumes-from mycontainer \
               -w /app \
-              --net none \
-              test bash -c 'echo "PWD"; pwd; ls; echo OK;';
-            docker run -it --rm \
-              --volumes-from mycontainer \
-              -w /app \
-              --net none \
+              --network none \
               test ./test.sh
 
 workflows:
