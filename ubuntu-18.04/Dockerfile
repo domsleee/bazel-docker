@@ -1,5 +1,6 @@
 FROM ubuntu:18.04
 
+# TODO: use first method
 RUN set -e; \
   apt-get update; \
   apt-get install -y g++-8 curl gnupg2; \
@@ -7,6 +8,7 @@ RUN set -e; \
   curl https://bazel.build/bazel-release.pub.gpg | apt-key add -; \
   apt-get update; \
   apt-get install -y bazel; \
+  apt-get install --only-upgrade -y bazel; \
   apt-get clean; \
   touch WORKSPACE; \
   bazel fetch @remote_java_tools_linux//...; \
