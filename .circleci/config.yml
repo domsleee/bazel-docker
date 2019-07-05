@@ -12,12 +12,12 @@ jobs:
           command: |
             docker build -t test ./ubuntu-18.04
       - run:
-        name: Run image build tests
-        command: |
-          docker run -it --rm -v $PWD:$PWD -w $PWD \
-            --net none \
-            -v /var/run/docker.sock:/var/run/docker.sock \
-            test ./test/test.sh
+          name: run build tests
+          command: |
+            docker run -it --rm -v $PWD:$PWD -w $PWD \
+              --net none \
+              -v /var/run/docker.sock:/var/run/docker.sock \
+              test ./test/test.sh
 
 workflows:
   build:
