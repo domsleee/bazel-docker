@@ -1,7 +1,6 @@
 FROM ubuntu:18.04
 
-COPY dummy.cc ./dummy.cc
-COPY BUILD BUILD
+COPY [ "dummy.cc", "BUILD", "./" ]
 
 # TODO: use first method
 RUN set -e; \
@@ -14,9 +13,8 @@ RUN set -e; \
   apt-get install --only-upgrade -y bazel; \
   apt-get clean; \
   touch WORKSPACE; \
-  pwd; ls; \
-  bazel build :dummy; \
-  rm WORKSPACE; \
+  bazel build dummy; \
+  rm WORKSPACE BUILD dummy.cc; \
   rm -rf /var/lib/apt/lists/*;
 
 WORKDIR /project
