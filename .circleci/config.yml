@@ -28,6 +28,7 @@ workflows:
   build:
     jobs:
       - "Build ubuntu 18.04"
+      - "Build ubuntu 18.04" # run the job twice (why not)
 jobs:
     "Build ubuntu 18.04":
         <<: *deploy_environment
