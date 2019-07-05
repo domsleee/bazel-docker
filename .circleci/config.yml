@@ -14,10 +14,10 @@ jobs:
       - run:
           name: run build tests
           command: |
-            docker run -it --rm -v $PWD:$PWD -w $PWD \
+            docker run -it --rm -v $(pwd)/.test:/app -w /app \
               --net none \
               -v /var/run/docker.sock:/var/run/docker.sock \
-              test ./test/test.sh
+              test ./test.sh
 
 workflows:
   build:
