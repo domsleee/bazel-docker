@@ -9,7 +9,6 @@ aliases:
       - run:
           name: Build application Docker image
           command: |
-            echo "the SECRET: ${MYSECRET}";
             cp -r .all/* "${DIRECTORY}/";
             docker build -t test "${DIRECTORY}"
       - run:
@@ -40,5 +39,5 @@ jobs:
     "Build SMALL ubuntu":
       <<: *deploy_environment
       environment:
-        DIRECTORY: ./ubuntu-18.04-smaller
+        DIRECTORY: ./ubuntu-18.04-small
       steps: *build_and_run
