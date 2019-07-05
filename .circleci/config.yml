@@ -2,7 +2,7 @@ aliases:
     - &deploy_environment
         working_directory: /app
         docker:
-            - image: docker:17.05.0-ce-git
+          - image: docker:17.05.0-ce-git
     - &build_and_run
       - checkout
       - setup_remote_docker
@@ -31,12 +31,12 @@ workflows:
       - "Build ubuntu 16.04" # run the job twice (why not)
 jobs:
     "Build ubuntu 18.04":
-        <<: *deploy_environment
-        environment:
-          DIRECTORY: ./ubuntu-18.04
-        steps: *build_and_run
+      <<: *deploy_environment
+      environment:
+        DIRECTORY: ./ubuntu-18.04
+      steps: *build_and_run
     "Build ubuntu 16.04":
-        <<: *deploy_environment
-        environment:
-          DIRECTORY: ./ubuntu-18.04
-        steps: *build_and_run
+      <<: *deploy_environment
+      environment:
+        DIRECTORY: ./ubuntu-18.04
+      steps: *build_and_run
