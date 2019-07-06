@@ -51,10 +51,12 @@ workflows:
     jobs:
       - "Build SMALL ubuntu"
       - "Build ubuntu 18.04"
+      - "Build alpine"
       - "size summary":
           requires:
             - "Build ubuntu 18.04"
             - "Build SMALL ubuntu"
+            - "Build alpine"
 jobs:
     "Build ubuntu 18.04":
       <<: *deploy_environment
@@ -65,6 +67,11 @@ jobs:
       <<: *deploy_environment
       environment:
         DIRECTORY: ./ubuntu-18.04-small
+      steps: *build_and_run
+    "Build alpine":
+      <<: *deploy_environment
+      environment:
+        DIRECTORY: ./alpine
       steps: *build_and_run
     "size summary":
       <<: *deploy_environment
