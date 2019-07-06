@@ -13,9 +13,9 @@ aliases:
       - run:
           name: export image file size for later use
           command: |
-            mkdir mysize;
+            mkdir /app/mysize;
             SIZE=$(docker images test | head -n2 | tail -n1 | rev | cut -d $' ' -f-1 | rev);
-            echo $SIZE > "mysize/${DIRECTORY/.\//}"
+            echo $SIZE > "/app/mysize/${DIRECTORY/.\//}"
       - persist_to_workspace:
           root: /app/mysize;
           paths:
