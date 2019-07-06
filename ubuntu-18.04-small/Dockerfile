@@ -11,6 +11,8 @@ RUN set -e; \
   bash script.sh; \
   touch WORKSPACE; \
   bazel build dummy; \
-  rm -rf /var/lib/apt/lists/* WORKSPACE BUILD dummy.cc;
+  apt-get remove --purge -y zip zlib1g-dev unzip python3 curl; \
+  apt-get clean; \
+  rm -rf /var/lib/apt/lists/* WORKSPACE BUILD dummy.cc script.sh;
 
 WORKDIR /project
