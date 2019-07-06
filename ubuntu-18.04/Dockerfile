@@ -14,7 +14,6 @@ RUN set -e; \
   apt-get clean; \
   touch WORKSPACE; \
   bazel build dummy; \
-  rm WORKSPACE BUILD dummy.cc; \
-  rm -rf /var/lib/apt/lists/*;
+  rm -rf /var/lib/apt/lists/* WORKSPACE BUILD dummy.cc;
 
 WORKDIR /project
