@@ -13,7 +13,7 @@ aliases:
       - run:
           name: run build tests
           command: |
-            docker image inspect test --format='{{.Size}}'
+            docker images test
             docker create -v /app --name mycontainer alpine /bin/true
             docker cp .test/. mycontainer:/app/
 
