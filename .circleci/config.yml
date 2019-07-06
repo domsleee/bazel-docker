@@ -11,6 +11,16 @@ aliases:
           command: |
             docker build -t test "${DIRECTORY}"
       - run:
+          name: export image file size for later use
+          command: |
+            mkdir mysize;
+            SIZE=$(docker images test | head -n2 | tail -n1 | rev | cut -d $' ' -f-1 | rev);
+            echo $SIZE > "mysize/${DIRECTORY/*\//}"
+      - persist_to_workspace:
+          root: mysize;
+          paths:
+            - ${DIRECTORY/*\//}
+      - run:
           name: run build tests
           command: |
             docker images test
@@ -22,6 +32,16 @@ aliases:
               -w /app \
               --network none \
               test ./test.sh
+    - &summary
+      - attach_workspace:
+          at: /tmp/workspace
+      - run:
+          name: get file sizes
+          command: |
+            for f in /tmp/workspace/*; do
+              echo $f $(cat $f);
+            done
+      
 
 version: 2
 workflows:
@@ -41,3 +61,9 @@ jobs:
       environment:
         DIRECTORY: ./ubuntu-18.04-small
       steps: *build_and_run
+    "Summary":
+      <<: *deploy_environment
+      requires:
+        - "Build ubuntu 18.04"
+        - "Build SMALL ubuntu"
+      steps: *summary
