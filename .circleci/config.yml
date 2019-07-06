@@ -1,0 +1,71 @@
+aliases:
+    - &deploy_environment
+        working_directory: /app
+        docker:
+          - image: docker:17.05.0-ce-git
+    - &build_and_run
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: Build application Docker image
+          command: |
+            docker build -t test "${DIRECTORY}"
+      - run:
+          name: export image file size for later use
+          command: |
+            mkdir -p mysize;
+            SIZE=$(docker images test | head -n2 | tail -n1 | rev | cut -d $' ' -f-1 | rev);
+            echo $SIZE > "mysize/${DIRECTORY/.\//}"
+            ls mysize
+      - persist_to_workspace:
+          root: mysize
+          paths:
+            - .
+      - run:
+          name: run build tests
+          command: |
+            docker images test
+            docker create -v /app --name mycontainer alpine /bin/true
+            docker cp .test/. mycontainer:/app/
+
+            docker run -it --rm \
+              --volumes-from mycontainer \
+              -w /app \
+              --network none \
+              test ./test.sh
+    - &summary
+      - attach_workspace:
+          at: /tmp/workspace
+      - run:
+          name: get file sizes
+          command: |
+            for f in /tmp/workspace/*; do
+              echo $f $(cat $f);
+            done
+      
+
+version: 2
+workflows:
+  version: 2
+  build:
+    jobs:
+      - "Build SMALL ubuntu"
+      - "Build ubuntu 18.04"
+      - "size summary":
+          requires:
+            - "Build ubuntu 18.04"
+            - "Build SMALL ubuntu"
+jobs:
+    "Build ubuntu 18.04":
+      <<: *deploy_environment
+      environment:
+        DIRECTORY: ./ubuntu-18.04
+      steps: *build_and_run
+    "Build SMALL ubuntu":
+      <<: *deploy_environment
+      environment:
+        DIRECTORY: ./ubuntu-18.04-small
+      steps: *build_and_run
+    "size summary":
+      <<: *deploy_environment
+      steps: *summary
