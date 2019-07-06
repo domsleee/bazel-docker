@@ -1,5 +1,6 @@
 FROM ubuntu:18.04
 
+WORKDIR /project
 COPY [ "dummy.cc", "BUILD", "./" ]
 
 # TODO: use first method
@@ -14,6 +15,6 @@ RUN set -e; \
   apt-get clean; \
   touch WORKSPACE; \
   bazel build dummy; \
+  pwd; \
   rm -rf /var/lib/apt/lists/* WORKSPACE BUILD dummy.cc;
 
-WORKDIR /project
