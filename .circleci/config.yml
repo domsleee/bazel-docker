@@ -16,10 +16,11 @@ aliases:
             mkdir -p mysize;
             SIZE=$(docker images test | head -n2 | tail -n1 | rev | cut -d $' ' -f-1 | rev);
             echo $SIZE > "mysize/${DIRECTORY/.\//}"
+            ls mysize
       - persist_to_workspace:
           root: mysize
           paths:
-            - ${DIRECTORY/.\//}
+            - .
       - run:
           name: run build tests
           command: |
