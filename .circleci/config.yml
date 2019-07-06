@@ -33,6 +33,10 @@ aliases:
               -w /app \
               --network none \
               test ./test.sh
+            
+              if [[ $(docker run --rm test pwd) != "/project" ]]; then
+                echo "incorrect working dir, required /project";
+              fi
     - &summary
       - attach_workspace:
           at: /tmp/workspace
