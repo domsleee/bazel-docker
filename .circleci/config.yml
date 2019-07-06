@@ -48,7 +48,10 @@ workflows:
   version: 2
   build:
     jobs:
-      - "build all images"
+      - "build all images":
+          requires:
+            - "Build ubuntu 18.04"
+            - "Build SMALL ubuntu"
 jobs:
     "Build ubuntu 18.04":
       <<: *deploy_environment
@@ -62,7 +65,4 @@ jobs:
       steps: *build_and_run
     "build all images":
       <<: *deploy_environment
-      requires:
-        - "Build ubuntu 18.04"
-        - "Build SMALL ubuntu"
       steps: *summary
