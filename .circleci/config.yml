@@ -48,6 +48,8 @@ workflows:
   version: 2
   build:
     jobs:
+      - "Build SMALL ubuntu"
+      - "Build ubuntu 18.04"
       - "build all images":
           requires:
             - "Build ubuntu 18.04"
