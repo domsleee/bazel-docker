@@ -3,13 +3,15 @@ aliases:
         working_directory: /app
         docker:
           - image: docker:17.05.0-ce-git
+        environment:
+          EXTRA: ""
     - &build_and_run
       - checkout
       - setup_remote_docker
       - run:
           name: Build application Docker image
           command: |
-            docker build -t test "${DIRECTORY}"
+            docker build -t test "${DIRECTORY}" ${EXTRA}
       - run:
           name: export image file size for later use
           command: |
@@ -66,6 +68,12 @@ jobs:
       <<: *deploy_environment
       environment:
         DIRECTORY: ./ubuntu-18.04
+      steps: *build_and_run
+    "Build ubuntu 18.04 w/ GDB":
+      <<: *deploy_environment
+      environment:
+        DIRECTORY: ./ubuntu-18.04
+        EXTRA: "--build-arg INSTALL_GDB=1"
       steps: *build_and_run
     "Build SMALL ubuntu":
       <<: *deploy_environment

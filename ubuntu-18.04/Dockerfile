@@ -1,9 +1,10 @@
 FROM ubuntu:18.04
 
+ARG INSTALL_GDB 0
+
 WORKDIR /project
 COPY [ "dummy.cc", "BUILD", "./" ]
 
-# TODO: use first method
 RUN set -e; \
   apt-get update; \
   apt-get install -y curl gnupg2; \
@@ -11,6 +12,7 @@ RUN set -e; \
   curl https://bazel.build/bazel-release.pub.gpg | apt-key add -; \
   apt-get update; \
   apt-get install -y bazel; \
+  if [[ ${INSTALL_GDB} == 1 ]]; then apt-get install -y gdb; fi; \
   apt-get install --only-upgrade -y bazel; \
   apt-get clean; \
   touch WORKSPACE; \
