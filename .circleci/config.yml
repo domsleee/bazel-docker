@@ -61,6 +61,7 @@ workflows:
       - "size summary":
           requires:
             - "Build ubuntu 18.04"
+            - "Build ubuntu 18.04 w/ GDB"
             - "Build SMALL ubuntu"
             - "Build alpine"
 jobs:
