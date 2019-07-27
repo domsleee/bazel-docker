@@ -56,6 +56,7 @@ workflows:
   build:
     jobs:
       - "Build SMALL ubuntu"
+      - "Build ubuntu 18.04 w/ GDB"
       - "Build ubuntu 18.04"
       - "Build alpine"
       - "size summary":
