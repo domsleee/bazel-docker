@@ -12,7 +12,7 @@ RUN set -e; \
   curl https://bazel.build/bazel-release.pub.gpg | apt-key add -; \
   apt-get update; \
   apt-get install -y bazel; \
-  if [[ ${INSTALL_GDB} == 1 ]]; then apt-get install -y gdb; fi; \
+  if [ "${INSTALL_GDB}" = "1" ]; then apt-get install -y gdb; fi; \
   apt-get install --only-upgrade -y bazel; \
   apt-get clean; \
   touch WORKSPACE; \

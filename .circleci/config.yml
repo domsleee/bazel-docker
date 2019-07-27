@@ -38,6 +38,7 @@ aliases:
             
               if [[ $(docker run --rm test pwd) != "/project" ]]; then
                 echo "incorrect working dir, required /project";
+                exit 1
               fi
     - &summary
       - attach_workspace:
@@ -76,7 +77,15 @@ jobs:
       environment:
         DIRECTORY: ./ubuntu-18.04
         EXTRA: "--build-arg INSTALL_GDB=1"
-      steps: *build_and_run
+      steps: 
+        <<: *build_and_run
+        - run:
+          name: verify gdb was installed
+          command: |
+            if ! docker run test gdb --version 2>/dev/null; then
+              echo "gdb not installed";
+              exit 1
+            fi
     "Build SMALL ubuntu":
       <<: *deploy_environment
       environment:
