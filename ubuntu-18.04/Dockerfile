@@ -1,6 +1,6 @@
 FROM ubuntu:18.04
 
-ARG INSTALL_GDB 0
+ARG INSTALL_GDB=0
 
 WORKDIR /project
 COPY [ "dummy.cc", "BUILD", "./" ]
