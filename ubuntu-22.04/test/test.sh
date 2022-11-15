@@ -1,0 +1,2 @@
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+docker run --rm -v $SCRIPT_DIR:/project --cap-add=SYS_PTRACE --security-opt seccomp=unconfined -it domslee/bazel:tbb22 bash runTest.sh
